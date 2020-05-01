@@ -1,0 +1,65 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# aarapir
+
+Access ArcGIS online API enpoints with R
+
+<!-- badges: start -->
+[![Project Status: Concept – Minimal or no implementation has been done yet, or the repository is only intended to be a limited example, demo, or proof-of-concept.](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/aarapir)](https://cran.r-project.org/package=aarapir)
+<!-- badges: end -->
+
+aarapir provides an R interface for querying and downloading publically accessible ArcGIS Online feature layers. The primary goal is to provide R users with an easy way to download features from ArcMap Online. I don't not anticipate this to be a full-fledged API to ArcGIS Online and Enterprise. See the [ArcGIS Python API](https://github.com/Esri/arcgis-python-api) for a more robust access to the ArcGIS API. This is super experimental and likely to change. This project is not associated with or supported by ESRI.
+
+## Features
+
+- [x] Return mapservice information
+
+- [x] Return feature layer information
+
+- [x] Return full feature layers (will loop requests if the maximum number of records is limited)
+
+- [ ] Pass user query so only needed records are returned
+
+- [ ] Return image service information
+
+- [ ] Provide interface for image or tile data
+
+## Example
+
+```{r}
+library(aarapir)
+## Start with a mapserver url, these typically end in "/MapServer"
+## Some examples here: https://sampleserver6.arcgisonline.com/arcgis/rest/services
+
+url <- "https://sampleserver6.arcgisonline.com/arcgis/rest/services/WindTurbines/MapServer"
+
+## This returns a list with information from the Map Service
+webserver <- service_info(url)
+
+## We can see what feature layers are available to download
+webserver$layers
+
+## This returns a list with information about the feature layer
+## id 0
+layerinfo <- layer_info(webserver, 0)
+
+## This downloads the entire feature layer and reads it into a
+## simple feature dataframe
+dat <- layer_download(layerinfo)
+dat
+```
+
