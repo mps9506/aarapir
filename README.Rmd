@@ -36,9 +36,12 @@ aarapir provides an R interface for querying and downloading publically accessib
 
 - [ ] Return image service information
 
-- [ ] Provide interface for image or tile data
+- [x] Provide interface for image or tile data
 
 ## Example
+
+
+Download a point feature layer:
 
 ```{r}
 library(aarapir)
@@ -61,5 +64,17 @@ layerinfo <- layer_info(webserver, 0)
 ## simple feature dataframe
 dat <- layer_download(layerinfo)
 dat
+```
+
+Download a raster:
+
+```{r}
+url <- "https://landsat2.arcgis.com/arcgis/rest/services/Landsat8_Views/ImageServer"
+webserver <- service_info(url)
+r1 <- image_download(webserver,
+                     size = "800,500",)
+r1
+raster::plotRGB(r1, r = 4, g = 3, b = 2, stretch = "lin",
+                bgalpha = 0)
 ```
 

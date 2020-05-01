@@ -4,7 +4,14 @@
 \alias{make_request}
 \title{Make a request}
 \usage{
-make_request(url, path = NULL, args = list(), parse_json = TRUE, ...)
+make_request(
+  url,
+  path = NULL,
+  args = list(),
+  parse_json = TRUE,
+  img = FALSE,
+  ...
+)
 }
 \arguments{
 \item{url}{character, the base url}
@@ -14,6 +21,8 @@ make_request(url, path = NULL, args = list(), parse_json = TRUE, ...)
 \item{args}{list, named query list}
 
 \item{parse_json}{logical, probably \code{TRUE}}
+
+\item{img}{logical, defaults to \code{FALSE}. Needs to be \code{TRUE} if downloading raster.}
 
 \item{...}{curl options}
 }

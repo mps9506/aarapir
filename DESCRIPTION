@@ -19,5 +19,6 @@ Imports:
     jsonlite,
     magrittr,
     purrr,
+    raster,
     sf,
     tibble

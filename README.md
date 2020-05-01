@@ -36,9 +36,11 @@ project is not associated with or supported by ESRI.
 
   - [ ] Return image service information
 
-  - [ ] Provide interface for image or tile data
+  - [x] Provide interface for image or tile data
 
 ## Example
+
+Download a point feature layer:
 
 ``` r
 library(aarapir)
@@ -107,3 +109,28 @@ dat
 #> 9  {D4F83D52-C26B-4BEF-A215-D4793B680476} POINT (-116.5773 33.85306)
 #> 10 {4FAEBC0C-5060-49D5-B284-54B2F58C2A14} POINT (-116.5846 33.88956)
 ```
+
+Download a raster:
+
+``` r
+url <- "https://landsat2.arcgis.com/arcgis/rest/services/Landsat8_Views/ImageServer"
+webserver <- service_info(url)
+#> https://landsat2.arcgis.com/arcgis/rest/services/Landsat8_Views/ImageServer?f=pjson
+r1 <- image_download(webserver,
+                     size = "800,500",)
+#> https://landsat2.arcgis.com/arcgis/rest/services/Landsat8_Views/ImageServer/exportImage?bbox=-20037507.0672%2C-9694091.0703%2C20037507.8427882%2C9691188.9297&bboxSR=3857&size=800%2C500&format=tiff&f=image
+r1
+#> class      : RasterBrick 
+#> dimensions : 500, 800, 4e+05, 11  (nrow, ncol, ncell, nlayers)
+#> resolution : 50093.77, 50093.77  (x, y)
+#> extent     : -20037507, 20037508, -12524893, 12521991  (xmin, xmax, ymin, ymax)
+#> crs        : +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs 
+#> source     : C:/Users/michael.schramm/AppData/Local/Temp/Rtmpy6fHOd/ras2cd03a1b9e9.tiff 
+#> names      : ras2cd03a1b9e9.1, ras2cd03a1b9e9.2, ras2cd03a1b9e9.3, ras2cd03a1b9e9.4, ras2cd03a1b9e9.5, ras2cd03a1b9e9.6, ras2cd03a1b9e9.7, ras2cd03a1b9e9.8, ras2cd03a1b9e9.9, ras2cd03a1b9e9.10, ras2cd03a1b9e9.11 
+#> min values :           -32768,           -32768,           -32768,           -32768,           -32768,           -32768,           -32768,           -32768,           -32768,            -32768,            -32768 
+#> max values :            32767,            32767,            32767,            32767,            32767,            32767,            32767,            32767,            32767,             32767,             32767
+raster::plotRGB(r1, r = 4, g = 3, b = 2, stretch = "lin",
+                bgalpha = 0)
+```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
