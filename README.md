@@ -12,6 +12,8 @@ yet, or the repository is only intended to be a limited example, demo,
 or
 proof-of-concept.](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/aarapir)](https://cran.r-project.org/package=aarapir)
+[![R build
+status](https://github.com/mps9506/aarapir/workflows/R-CMD-check/badge.svg)](https://github.com/mps9506/aarapir/actions)
 <!-- badges: end -->
 
 aarapir provides an R interface for querying and downloading publically
@@ -76,15 +78,13 @@ dat <- layer_download(layerinfo)
 #> geometry type:  POINT
 #> dimension:      XY
 #> bbox:           xmin: -116.6811 ymin: 33.85035 xmax: -116.533 ymax: 33.91881
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#> CRS:            4326
 dat
 #> Simple feature collection with 11 features and 6 fields
 #> geometry type:  POINT
 #> dimension:      XY
 #> bbox:           xmin: -116.6811 ymin: 33.85035 xmax: -116.533 ymax: 33.91881
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#> CRS:            4326
 #> First 10 features:
 #>    objectid status dateinspected notes photo
 #> 1         2     NA  1.295451e+12  test  <NA>
@@ -125,10 +125,10 @@ r1
 #> resolution : 50093.77, 50093.77  (x, y)
 #> extent     : -20037507, 20037508, -12524893, 12521991  (xmin, xmax, ymin, ymax)
 #> crs        : +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs 
-#> source     : C:/Users/michael.schramm/AppData/Local/Temp/Rtmpy6fHOd/ras2cd03a1b9e9.tiff 
-#> names      : ras2cd03a1b9e9.1, ras2cd03a1b9e9.2, ras2cd03a1b9e9.3, ras2cd03a1b9e9.4, ras2cd03a1b9e9.5, ras2cd03a1b9e9.6, ras2cd03a1b9e9.7, ras2cd03a1b9e9.8, ras2cd03a1b9e9.9, ras2cd03a1b9e9.10, ras2cd03a1b9e9.11 
-#> min values :           -32768,           -32768,           -32768,           -32768,           -32768,           -32768,           -32768,           -32768,           -32768,            -32768,            -32768 
-#> max values :            32767,            32767,            32767,            32767,            32767,            32767,            32767,            32767,            32767,             32767,             32767
+#> source     : C:/Users/Michael/AppData/Local/Temp/Rtmpi6SCtt/ras18b43b1c7675.tiff 
+#> names      : ras18b43b1c7675.1, ras18b43b1c7675.2, ras18b43b1c7675.3, ras18b43b1c7675.4, ras18b43b1c7675.5, ras18b43b1c7675.6, ras18b43b1c7675.7, ras18b43b1c7675.8, ras18b43b1c7675.9, ras18b43b1c7675.10, ras18b43b1c7675.11 
+#> min values :            -32768,            -32768,            -32768,            -32768,            -32768,            -32768,            -32768,            -32768,            -32768,             -32768,             -32768 
+#> max values :             32767,             32767,             32767,             32767,             32767,             32767,             32767,             32767,             32767,              32767,              32767
 raster::plotRGB(r1, r = 4, g = 3, b = 2, stretch = "lin",
                 bgalpha = 0)
 ```
