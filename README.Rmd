@@ -20,6 +20,7 @@ Access ArcGIS online API enpoints with R
 <!-- badges: start -->
 [![Project Status: Concept – Minimal or no implementation has been done yet, or the repository is only intended to be a limited example, demo, or proof-of-concept.](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/aarapir)](https://cran.r-project.org/package=aarapir)
+[![R build status](https://github.com/mps9506/aarapir/workflows/R-CMD-check/badge.svg)](https://github.com/mps9506/aarapir/actions)
 <!-- badges: end -->
 
 aarapir provides an R interface for querying and downloading publically accessible ArcGIS Online feature layers. The primary goal is to provide R users with an easy way to download features from ArcMap Online. I don't not anticipate this to be a full-fledged API to ArcGIS Online and Enterprise. See the [ArcGIS Python API](https://github.com/Esri/arcgis-python-api) for a more robust access to the ArcGIS API. This is super experimental and likely to change. This project is not associated with or supported by ESRI.
