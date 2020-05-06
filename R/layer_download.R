@@ -95,7 +95,14 @@ layer_download <- function(layer_info,
       dplyr::mutate(results = purrr::map2(.x = from,
                                    .y = to,
                                    ~{
-                                     q <- paste0(id_field, "+>%3D+", .x, "+AND+", id_field, "+<%3D+", .y)
+                                     ## the queries use percent encoding,
+                                     ## except spaces are "+"
+                                     ## can use a modified version of RCurl curlPercentEncode to
+                                     ## enode the query then wrap with I()
+                                     #q <- paste0(id_field, "+>%3D+", .x, "+AND+", id_field, "+<%3D+", .y)
+                                     q <- paste0(id_field, " >= ", .x, " AND ",
+                                                 id_field, " <= ", .y)
+                                     q <- p_encode_m(q)
                                      make_request(url,
                                                   args = list(where = I(q), ## use I() because we don't want +,>, or < encoded
                                                               outFields = outfields,
