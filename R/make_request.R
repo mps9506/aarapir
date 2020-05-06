@@ -37,9 +37,6 @@ make_request <- function(url,
                    disk = f)
   }
 
-  message(res$url)
-
-
   # check to see if request failed or succeeded
   # - if succeeds this will return nothing and proceeds to next step
   res$raise_for_status()

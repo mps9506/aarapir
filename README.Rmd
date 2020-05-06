@@ -33,11 +33,11 @@ aarapir provides an R interface for querying and downloading publically accessib
 
 - [x] Return full feature layers (will loop requests if the maximum number of records is limited)
 
-- [ ] Pass user query so only needed records are returned
+- [x] Pass user query so only needed records are returned
 
 - [ ] Return image service information
 
-- [x] Provide interface for image or tile data
+- [ ] Provide interface for image or tile data
 
 ## Example
 
@@ -65,9 +65,21 @@ layerinfo <- layer_info(webserver, 0)
 ## simple feature dataframe
 dat <- layer_download(layerinfo)
 dat
+
+
+## If you want to return only objects from a query:
+dat <- layer_download(layerinfo, query = "notes = 'test'")
+## note query support might vary by server, but generally standard query functions
+## work. more info: https://gisweb.tceq.texas.gov/arcgis/sdk/rest/index.html#/Query_Map_Service_Layer/02ss0000000r000000/
+## enter the query in quoted plain text, the function will do the proper URI encoding
+dat
 ```
 
-Download a raster:
+
+
+## experimental
+
+Downloading mosaiced images works. I'm having difficulty finding maps that allow downloading source rasters even though it is supported by the API. This is definately going to change.
 
 ```{r}
 url <- "https://landsat2.arcgis.com/arcgis/rest/services/Landsat8_Views/ImageServer"

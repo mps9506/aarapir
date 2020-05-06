@@ -4,10 +4,12 @@
 \alias{service_info}
 \title{Return Mapserver Info}
 \usage{
-service_info(mapserver_url)
+service_info(mapserver_url, verbose = FALSE)
 }
 \arguments{
 \item{mapserver_url}{character}
+
+\item{verbose}{logical passed to \code{crul::HttpClient$new()}}
 }
 \value{
 list

@@ -34,11 +34,11 @@ project is not associated with or supported by ESRI.
   - [x] Return full feature layers (will loop requests if the maximum
     number of records is limited)
 
-  - [ ] Pass user query so only needed records are returned
+  - [x] Pass user query so only needed records are returned
 
   - [ ] Return image service information
 
-  - [x] Provide interface for image or tile data
+  - [ ] Provide interface for image or tile data
 
 ## Example
 
@@ -53,7 +53,6 @@ url <- "https://sampleserver6.arcgisonline.com/arcgis/rest/services/WindTurbines
 
 ## This returns a list with information from the Map Service
 webserver <- service_info(url)
-#> https://sampleserver6.arcgisonline.com/arcgis/rest/services/WindTurbines/MapServer?f=pjson
 
 ## We can see what feature layers are available to download
 webserver$layers
@@ -65,26 +64,18 @@ webserver$layers
 ## This returns a list with information about the feature layer
 ## id 0
 layerinfo <- layer_info(webserver, 0)
-#> https://sampleserver6.arcgisonline.com/arcgis/rest/services/WindTurbines/MapServer/0?f=pjson
 
 ## This downloads the entire feature layer and reads it into a
 ## simple feature dataframe
 dat <- layer_download(layerinfo)
-#> https://sampleserver6.arcgisonline.com/arcgis/rest/services/WindTurbines/MapServer/0/query?where=1%3D1&outFields=objectid%2Cstatus%2Cdateinspected%2Cnotes%2Cshape%2Cphoto%2Cglobalid&returnCountOnly=true&f=json
 #> Number of target records:  11
-#> https://sampleserver6.arcgisonline.com/arcgis/rest/services/WindTurbines/MapServer/0/query?where=1%3D1&outFields=objectid%2Cstatus%2Cdateinspected%2Cnotes%2Cshape%2Cphoto%2Cglobalid&returnGeometry=true&f=geojson
-#> Reading layer `OGRGeoJSON' from data source `{"type":"FeatureCollection","crs":{"type":"name","properties":{"name":"EPSG:4326"}},"features":[{"type":"Feature","id":2,"geometry":{"type":"Point","coordinates":[-116.61549461097971,33.860188265218177]},"properties":{"objectid":2,"status":null,"dateinspected":1295450555000,"notes":"test","photo":null,"globalid":"{E41FAF3C-BB03-445F-8E6A-12227C7EC007}"}},{"type":"Feature","id":6,"geometry":{"type":"Point","coordinates":[-116.53298407724887,33.850347840635195]},"properties":{"objectid":6,"status":1,"dateinspected":-2209161600000,"notes":"","photo":null,"globalid":"{DF9403DA-C08D-4C5C-A505-77A761F296D9}"}},{"type":"Feature","id":12,"geometry":{"type":"Point","coordinates":[-116.61729294744869,33.918809741984433]},"properties":{"objectid":12,"status":null,"dateinspected":null,"notes":null,"photo":null,"globalid":"{3EA788B3-32D8-4B1D-8CBC-D1E5757A50DC}"}},{"type":"Feature","id":13,"geometry":{"type":"Point","coordinates":[-116.66706626262032,33.871138708125052]},"properties":{"objectid":13,"status":null,"dateinspected":null,"notes":null,"photo":null,"globalid":"{FB929FD4-D75D-419D-B5B9-BDF371F0C34A}"}},{"type":"Feature","id":14,"geometry":{"type":"Point","coordinates":[-116.6811048904371,33.918809741984433]},"properties":{"objectid":14,"status":null,"dateinspected":null,"notes":null,"photo":null,"globalid":"{736F24BE-0A10-4779-BD66-71643191087B}"}},{"type":"Feature","id":17,"geometry":{"type":"Point","coordinates":[-116.59929055194976,33.917358425474795]},"properties":{"objectid":17,"status":null,"dateinspected":null,"notes":"","photo":null,"globalid":"{9C4CE3DB-9B5F-4BE6-84E8-3949DF5DA6A4}"}},{"type":"Feature","id":18,"geometry":{"type":"Point","coordinates":[-116.55009795898171,33.913015533223799]},"properties":{"objectid":18,"status":null,"dateinspected":null,"notes":"","photo":null,"globalid":"{CEE9E968-58A5-41D2-BF28-6B14E3997352}"}},{"type":"Feature","id":19,"geometry":{"type":"Point","coordinates":[-116.54067810004665,33.887822397437517]},"properties":{"objectid":19,"status":null,"dateinspected":null,"notes":"","photo":null,"globalid":"{897F8DEF-8C3B-4CB2-88DE-8EA1EF9CD01D}"}},{"type":"Feature","id":20,"geometry":{"type":"Point","coordinates":[-116.57731088259835,33.85306103187407]},"properties":{"objectid":20,"status":null,"dateinspected":null,"notes":"","photo":null,"globalid":"{D4F83D52-C26B-4BEF-A215-D4793B680476}"}},{"type":"Feature","id":21,"geometry":{"type":"Point","coordinates":[-116.58463743874938,33.88956009338046]},"properties":{"objectid":21,"status":null,"dateinspected":null,"notes":"","photo":null,"globalid":"{4FAEBC0C-5060-49D5-B284-54B2F58C2A14}"}},{"type":"Feature","id":22,"geometry":{"type":"Point","coordinates":[-116.64952979541147,33.893904180600316]},"properties":{"objectid":22,"status":null,"dateinspected":null,"notes":"","photo":null,"globalid":"{E0B5746C-2AFA-4D26-B8F9-156C32DCCA8E}"}}]}' using driver `GeoJSON'
-#> Simple feature collection with 11 features and 6 fields
-#> geometry type:  POINT
-#> dimension:      XY
-#> bbox:           xmin: -116.6811 ymin: 33.85035 xmax: -116.533 ymax: 33.91881
-#> CRS:            4326
 dat
 #> Simple feature collection with 11 features and 6 fields
 #> geometry type:  POINT
 #> dimension:      XY
 #> bbox:           xmin: -116.6811 ymin: 33.85035 xmax: -116.533 ymax: 33.91881
-#> CRS:            4326
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #> First 10 features:
 #>    objectid status dateinspected notes photo
 #> 1         2     NA  1.295451e+12  test  <NA>
@@ -108,25 +99,46 @@ dat
 #> 8  {897F8DEF-8C3B-4CB2-88DE-8EA1EF9CD01D} POINT (-116.5407 33.88782)
 #> 9  {D4F83D52-C26B-4BEF-A215-D4793B680476} POINT (-116.5773 33.85306)
 #> 10 {4FAEBC0C-5060-49D5-B284-54B2F58C2A14} POINT (-116.5846 33.88956)
+
+
+## If you want to return only objects from a query:
+dat <- layer_download(layerinfo, query = "notes = 'test'")
+#> Number of target records:  1
+## note query support might vary by server, but generally standard query functions
+## work. more info: https://gisweb.tceq.texas.gov/arcgis/sdk/rest/index.html#/Query_Map_Service_Layer/02ss0000000r000000/
+## enter the query in quoted plain text, the function will do the proper URI encoding
+dat
+#> Simple feature collection with 1 feature and 6 fields
+#> geometry type:  POINT
+#> dimension:      XY
+#> bbox:           xmin: -116.6155 ymin: 33.86019 xmax: -116.6155 ymax: 33.86019
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>   objectid status dateinspected notes photo
+#> 1        2   <NA>  1.295451e+12  test  <NA>
+#>                                 globalid                   geometry
+#> 1 {E41FAF3C-BB03-445F-8E6A-12227C7EC007} POINT (-116.6155 33.86019)
 ```
 
-Download a raster:
+## experimental
+
+Downloading mosaiced images works. I’m having difficulty finding maps
+that allow downloading source rasters even though it is supported by the
+API. This is definately going to change.
 
 ``` r
 url <- "https://landsat2.arcgis.com/arcgis/rest/services/Landsat8_Views/ImageServer"
 webserver <- service_info(url)
-#> https://landsat2.arcgis.com/arcgis/rest/services/Landsat8_Views/ImageServer?f=pjson
 r1 <- image_download(webserver,
                      size = "800,500",)
-#> https://landsat2.arcgis.com/arcgis/rest/services/Landsat8_Views/ImageServer/exportImage?bbox=-20037507.0672%2C-9694091.0703%2C20037507.8427882%2C9691188.9297&bboxSR=3857&size=800%2C500&format=tiff&f=image
 r1
 #> class      : RasterBrick 
 #> dimensions : 500, 800, 4e+05, 11  (nrow, ncol, ncell, nlayers)
 #> resolution : 50093.77, 50093.77  (x, y)
 #> extent     : -20037507, 20037508, -12524893, 12521991  (xmin, xmax, ymin, ymax)
 #> crs        : +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs 
-#> source     : C:/Users/Michael/AppData/Local/Temp/Rtmpi6SCtt/ras18b43b1c7675.tiff 
-#> names      : ras18b43b1c7675.1, ras18b43b1c7675.2, ras18b43b1c7675.3, ras18b43b1c7675.4, ras18b43b1c7675.5, ras18b43b1c7675.6, ras18b43b1c7675.7, ras18b43b1c7675.8, ras18b43b1c7675.9, ras18b43b1c7675.10, ras18b43b1c7675.11 
+#> source     : C:/Users/michael.schramm/AppData/Local/Temp/RtmpILzp8W/ras12c456bc427c.tiff 
+#> names      : ras12c456bc427c.1, ras12c456bc427c.2, ras12c456bc427c.3, ras12c456bc427c.4, ras12c456bc427c.5, ras12c456bc427c.6, ras12c456bc427c.7, ras12c456bc427c.8, ras12c456bc427c.9, ras12c456bc427c.10, ras12c456bc427c.11 
 #> min values :            -32768,            -32768,            -32768,            -32768,            -32768,            -32768,            -32768,            -32768,            -32768,             -32768,             -32768 
 #> max values :             32767,             32767,             32767,             32767,             32767,             32767,             32767,             32767,             32767,              32767,              32767
 raster::plotRGB(r1, r = 4, g = 3, b = 2, stretch = "lin",

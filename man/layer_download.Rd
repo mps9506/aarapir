@@ -4,7 +4,7 @@
 \alias{layer_download}
 \title{Download layer from ArcGIS online}
 \usage{
-layer_download(layer_info, outfields = NULL, verbose = FALSE)
+layer_download(layer_info, outfields = NULL, verbose = FALSE, query = NULL)
 }
 \arguments{
 \item{layer_info}{output from \code{layer_info}}
@@ -13,7 +13,12 @@ layer_download(layer_info, outfields = NULL, verbose = FALSE)
 sperated field names. The default value of \code{NULL} will make the
 function return all the fields.}
 
-\item{verbose}{logical, defaults to \code{FALSE}. Passed to \code{crul::HttpClient$new()}.}
+\item{verbose}{logical, defaults to \code{FALSE}. Passed to
+\code{crul::HttpClient$new()}.}
+
+\item{query}{character or \code{NULL} (default). The default \code{NULL} will
+return all records. Use a standard SQL style query to return a subset of
+records. For example: \code{"OBJECTID > 1 AND OBJECTID <30"}.}
 }
 \value{
 sf
